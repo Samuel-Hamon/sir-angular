@@ -1,0 +1,26 @@
+<div>
+    <input [(ngModel)]="search" placeholder="Rechercher un Pokémon">
+</div>
+
+<select [(ngModel)]="selectedPokemonId">
+    <option *ngFor="let pokemon of pokemons | filterPokemonPipe: 'name': search" [value]="pokemon.id">
+        {{ pokemon.id }} - {{ pokemon.name }}
+    </option>
+</select>
+
+<button (click)="validateSelection()">Go !</button>
+
+<!-- Affichage des détails du Pokémon sélectionné -->
+<div *ngIf="selectedPokemon">
+    <h2>{{ selectedPokemon.name }} (ID: {{ selectedPokemon.id }})</h2>
+    <p><strong>Types:</strong> {{ selectedPokemon.types.join(', ') }}</p>
+    <p><strong>Height:</strong> {{ selectedPokemon.height }} dm</p>
+    <p><strong>Weight:</strong> {{ selectedPokemon.weight }} hg</p>
+
+    <h3>Stats:</h3>
+    <ul>
+        <li *ngFor="let stat of selectedPokemon.stats">
+            {{ stat.name }}: {{ stat.value }}
+        </li>
+    </ul>
+</div>
